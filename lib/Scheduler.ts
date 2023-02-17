@@ -129,8 +129,8 @@ export default class Scheduler {
 		return newTask;
 	}
 	/**
-		 * 处理需要处理的 tasks。
-		 */
+	* 处理需要处理的 tasks。
+	*/
 	private work = () => {
 		// 注意：work 有可能是 readyTasks 触发的，也可能是 sleepTask 触发的。
 		this.sliceStart = this.refreshCurrentTime(); //  新的时间片开始
@@ -140,7 +140,7 @@ export default class Scheduler {
 			this.ifTimeoutCalled = false;
 		}
 		this.wake(); // 这一步决定了 readyQueue 一定不为空
-		this.workLoop();
+		this.loop();
 		const { readyQueue, sleepQueue } = this;
 		if (readyQueue.peek()) {
 			this.prepareToWorkInNextSlice();
@@ -154,7 +154,7 @@ export default class Scheduler {
 	/**
 	 * 依次拿出任务来执行
 	 */
-	private workLoop() {
+	private loop() {
 		let currentTask = this.readyQueue.peek();
 		const { readyQueue } = this;
 		while (currentTask) {
